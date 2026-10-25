@@ -6,18 +6,23 @@ a custom mouse cursor reverts to the system cursor in fullscreen on macOS.
 
 ## The bug
 
-Run the project in fullscreen on macOS, then brush the **menu bar** at the top
-of the screen and move back down. The custom cursor (a magenta disc) is
-replaced by the system arrow cursor, and it stays replaced.
+Run the project in fullscreen on macOS, move the pointer into the band at the
+**top of the screen**, then move back down. The custom cursor (a magenta disc)
+is replaced by the system arrow cursor, and it stays replaced.
 
-macOS resets the cursor state of the application after it closes the menu bar
-above a fullscreen window, and it sends no event for this change. The engine
+The **menu bar is not involved**. You do not need to reach the top edge of the
+screen or make the menu bar appear. In fullscreen the content view does not
+cover the whole screen: a band of approximately 37 points at the top belongs to
+a window owned by macOS. On a 1117 point tall screen the view is 1080 points
+tall. Crossing that line and coming back is enough.
+
+macOS resets the cursor state of the application when the pointer leaves the
+view at the top and returns, and it sends no event for this change. The engine
 does not know that it must set the cursor again. The reset affects the cursor
 image, and also the visibility of the system cursor.
 
-Brushing the **Dock** at the bottom does *not* cause the bug, because the Dock
-overlays the content view and the engine gets a cursor update when the pointer
-returns.
+Moving into the **Dock** at the bottom does *not* cause the bug, because the
+Dock overlays the content view, so the pointer never leaves it.
 
 ## How to run
 

@@ -94,5 +94,5 @@ func _refresh() -> void:
 		"A arrow(magenta)  S ibeam   D pointing hand",
 		"ESC quit",
 		"",
-		"Brush the menu bar at the top, then move back down.",
+		"Move the pointer to the top of the screen, then back down.",
 	])
