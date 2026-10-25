@@ -46,9 +46,10 @@ Apple Silicon. Both `FULLSCREEN` and `EXCLUSIVE_FULLSCREEN` are affected.
 The same defect appears in other applications that use the macOS hardware
 cursor:
 
-- **Unity 6** (`6000.3.22f1`) with `CursorMode.Auto` behaves identically.
-  `CursorMode.ForceSoftware` hides the defect, because Unity then draws the
-  cursor itself.
+- **Unity 6** (`6000.3.22f1`) with `CursorMode.Auto` behaves identically. See
+  [macos-cursor-unity-repro-76038](https://github.com/jasharpe/macos-cursor-unity-repro-76038)
+  for the equivalent Unity project. `CursorMode.ForceSoftware` hides the
+  defect, because Unity then draws the cursor itself and never uses `NSCursor`.
 - [Chromium issue 430116472](https://issues.chromium.org/issues/430116472) —
   Chrome observed no `updateCursor` call when the cursor changes, and concluded
   that the change comes from a window the application does not own.
