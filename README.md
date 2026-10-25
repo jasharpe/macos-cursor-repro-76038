@@ -10,9 +10,10 @@ Run the project in fullscreen on macOS, then brush the **menu bar** at the top
 of the screen and move back down. The custom cursor (a magenta disc) is
 replaced by the system arrow cursor, and it stays replaced.
 
-macOS replaces the cursor of the application after it closes the menu bar above
-a fullscreen window, and it sends no event for this change. The engine does not
-know that it must set the cursor again.
+macOS resets the cursor state of the application after it closes the menu bar
+above a fullscreen window, and it sends no event for this change. The engine
+does not know that it must set the cursor again. The reset affects the cursor
+image, and also the visibility of the system cursor.
 
 Brushing the **Dock** at the bottom does *not* cause the bug, because the Dock
 overlays the content view and the engine gets a cursor update when the pointer
@@ -46,10 +47,12 @@ Apple Silicon. Both `FULLSCREEN` and `EXCLUSIVE_FULLSCREEN` are affected.
 The same defect appears in other applications that use the macOS hardware
 cursor:
 
-- **Unity 6** (`6000.3.22f1`) with `CursorMode.Auto` behaves identically. See
+- **Unity 6** (`6000.3.22f1`) behaves identically. See
   [macos-cursor-unity-repro-76038](https://github.com/jasharpe/macos-cursor-unity-repro-76038)
-  for the equivalent Unity project. `CursorMode.ForceSoftware` hides the
-  defect, because Unity then draws the cursor itself and never uses `NSCursor`.
+  for the equivalent Unity project. Both cursor modes of Unity fail. The
+  hardware cursor (`CursorMode.Auto`) reverts to the system arrow cursor. The
+  software cursor (`CursorMode.ForceSoftware`) keeps its own cursor, but macOS
+  also makes the system cursor visible again, so two cursors appear.
 - [Chromium issue 430116472](https://issues.chromium.org/issues/430116472) —
   Chrome observed no `updateCursor` call when the cursor changes, and concluded
   that the change comes from a window the application does not own.
