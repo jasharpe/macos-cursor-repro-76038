@@ -58,14 +58,15 @@ cursor:
   hardware cursor (`CursorMode.Auto`) reverts to the system arrow cursor. The
   software cursor (`CursorMode.ForceSoftware`) keeps its own cursor, but macOS
   also makes the system cursor visible again, so two cursors appear.
-- [Chromium issue 430116472](https://issues.chromium.org/issues/430116472) —
+- [Chromium issue 430116472](https://issues.chromium.org/issues/430116472).
   Chrome observed no `updateCursor` call when the cursor changes, and concluded
   that the change comes from a window the application does not own.
-- [Deskflow PR #10184](https://github.com/deskflow/deskflow/pull/10184) — the
+- [Deskflow PR #10184](https://github.com/deskflow/deskflow/pull/10184) reports the
   same defect on macOS 26, worked around with an undocumented menu bar
   notification.
-- [Apple Developer Forums thread 803069](https://developer.apple.com/forums/thread/803069) —
-  custom cursors revert when they touch the top screen edge in fullscreen.
+- [Apple Developer Forums thread 803069](https://developer.apple.com/forums/thread/803069)
+  reports that custom cursors revert when they touch the top screen edge in
+  fullscreen.
 
 ## Useful measurements
 
